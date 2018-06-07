@@ -1,0 +1,68 @@
+Exercícios Alocação de Memória
+
+1. Considere um sistema cuja gerência de memória é feita por meio de partições variáveis. Neste momento existem as seguintes lacunas (áreas livres): 10k, 4k, 20k, 18k, 7k, 9k, 12k e 13k, nesta ordem. Quais espaços serão ocupados pelos processos de: 5k, 10k e 6k, nesta ordem, se:
+
+Lacunas: 10k, 4k, 20k, 18k, 7k, 9k, 12k e 13k.
+Solicitações: 5k, 10k e 6k.
+
+a) First-fit for utilizado? 
+* 5k, 4k, 20k, 18k, 7k, 9k, 12k e 13k 
+* 5k, 4k, 10k, 18k, 7k, 9k, 12k e 13k
+* 5k, 4k, 4k, 18k, 7k, 9k, 12k e 13k (Sobrou 4k)
+
+b) Best-fit for utilizado?
+*10k, 4k, 20k, 18k, 2k, 9k, 12k e 13k (Sobrou 2k)
+*(0k), 4k, 20k, 18k, 2k, 9k, 12k e 13k (Zerou o a repartição de 5k)
+*(0k), 4k, 20k, 18k, 2k, 3k, 12k e 13k  (Zerou a repartição de 10k)
+
+c) Worst-fit for utilizado?
+* 10k, 4k, 15k, 18k, 7k, 9k, 12k e 13k (Diminuiu 5k da repartição de 20k)
+* 10k, 4k, 15k, 8k, 7k, 9k, 12k e 13k (Diminuiu 10k da repartição de 18k)
+* 10k, 4k, 9k, 8k, 7k, 9k, 12k e 13k (Diminuiu 6k da repartição de 15k)
+
+2. O sistema operacional XYZ utiliza paginação como gerência de memória. São utilizadas páginas de 1kB. Um endereço lógico ocupa 20 bits. Um endereço físico ocupa 24 bits. Cada entrada na tabela de páginas contém, além do número da página física, um bit de válido/inválido e um bit que indica apenas leitura. Mostre como podem ser calculados os seguintes valores:
+
+a) Qual o tamanho máximo para a memória física?
+Páginas de 1kb, deslocamento de 10bits.
+
+b) Qual o tamanho do maior programa que o sistema suporta?
+Endereçamento lógico: 20 bits, sendo 10 para deslocamento, sobram 10 para endereçar as páginas. Logo, no máximo 1024 páginas. Se cada página tem 1KB, programa máximo suportado é de 1MB. 
+
+c) Quantas entradas, no máximo, possui a tabela de páginas?
+Endereçamento físico: 24 bits, sendo 10 para deslocamento, 2 para controle, sobram 12 para endereçar. Logo, no máximo 4096. Tamanho máximo da memória física 4MB. 
+
+d) Quantos bits serão necessários para a tabela de páginas?
+Tabela de páginas possui 1024 entradas (por processo) Cada entrada possui 12 bits, logo cada tabela de páginas consome 12288 bits. 
+3. Qual a diferença entre fragmentação interna e fragmentação externa?
+Fragmentação Interna – memória perdida dentro da área alocada para um processo.
+Fragmentação externa – memória perdida fora da área ocupada por um processo.
+
+4. Considere um sistema que utiliza partições variáveis na gerência de memória. Para os itens
+
+a) Arquitetura emprega registradores de limite apenas
+O registrador marca o menor endereço disponível para o processo corrente, o outro marca o maior endereço disponível. 
+
+b) Arquitetura utiliza registradores de base e de limite
+Quando o processo é selecionado, o endereço inferior de memória física é atribuído ao registrador base, se o endereço que tenta acessar a memória é menor ou igual ao valor do endereço limite, o acesso é realizado, caso contrário, o endereço está fora do espaço de endereçamento de processos.
+
+Analise a viabilidade de ser implementado swapping. E como seria feito. (troca de endereços ao recarregar um processo do disco para a memória)
+Swapping: uma técnica criada na tentativa de melhorar o problema da insuficiência de memória durante a execução de alguns processos em ambientes multiprogramados. 
+
+5. Em um sistema usando segmentação paginada, o espaço de endereçamento lógico de cada processo consiste de no máximo 16 segmentos, cada um podendo ter até 64 kbytes de tamanho. As páginas físicas são de 512 bytes. Quantos bits são necessários para especificar cada uma das grandezas abaixo?
+
+a) Número do segmento
+16bits = 2 elevado a 4
+4bits para endereçar os segmentos
+
+b) Número de uma página lógica, dentro do segmento
+64kbytes = 65536bits (64 x 1024)
+65536 / 512(tamanho da página) = 128
+128 = 2 elevado a 7
+7 bits para endereços
+
+c) Deslocamento dentro de uma página
+512bytes = 2 elevado a 9
+9bits para deslocamento
+
+d) Endereço lógico completo
+4 + 7 + 9 = 20bits
